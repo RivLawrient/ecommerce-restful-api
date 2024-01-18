@@ -1,0 +1,256 @@
+@startuml
+
+entity user{
+*id: VARCHAR
+--
+*name: VARCHAR
+birth_day: DATE
+gender: CHAR
+profile_picture: VARCHAR
+--
+*email: VARCHAR
+email_otp: VARCHAR
+email_verification: BOOLEAN
+*handphone: INT
+handphone_otp: VARCHAR
+handphone_verification: BOOLEAN
+*password: VARCHAR
+pin: INT
+token: VARCHAR
+token_expired_at:LONG
+update_at: DATE
+created_at: DATE
+}
+
+
+entity address{
+*id: VARCHAR
+*user_id: VARCHAR
+--
+name: VARCHAR
+handphone: INT
+label: VARCHAR
+city: VARCHAR
+province: VARCHAR
+postal_code: VARCHAR
+complete_address: VARCHAR
+coordinate: VARCHAR
+notes: VARCHAR
+main_address: BOOLEAN
+}
+
+entity seller{
+*id: VARCHAR
+*user_id: VARCHAR
+balance: LONG
+--
+profile_picture: VARCHAR
+name: VARCHAR
+description: VARCHAR
+domain: VARCHAR
+--
+city: VARCHAR
+province: VARCHAR
+complete_address: VARCHAR
+postal_code: VARCHAR
+coordinate: VARCHAR
+--
+status_active: BOOLEAN
+last_seen: LONG
+created_at: VARCHAR
+}
+
+entity product{
+*id: VARCHAR
+*seller_id: VARCHAR
+--
+name: VARCHAR
+price: LONG
+description: VARCHAR
+category: VARCHAR
+condition: VARCHAR
+weight: VARCHAR
+minimum_buy: INT
+stock: INT
+--
+status_active: BOOLEAN
+created_at: LONG
+}
+
+entity product_variant{
+*id: VARCHAR
+*product_id: VARCHAR
+*product_subvariant_id: VARCHAR
+--
+number: ENUM
+name: VARCHAR
+}
+
+entity product_etalase{
+*id: VARCHAR
+*seller_id: VARCHAR
+--
+name: VARCHAR
+}
+
+entity product_subvariant{
+*id: VARCHAR
+product_variant_id: VARCHAR
+--
+name: VARCHAR
+url_image: VARCHAR
+price: LONG
+stock: LONG
+weight: LONG
+}
+
+entity product_image{
+*id: VARCHAR
+*product_id: VARCHAR
+--
+main: VARCHAR
+first: VARCHAR
+second: VARCHAR
+third: VARCHAR
+fourth: VARCHAR
+fifth: VARCHAR
+}
+
+entity product_review{
+*id: VARCHAR
+*product_id: VARCHAR
+*user_id: VARCHAR
+--
+comment: VARCHAR
+rating: INT
+first_img: VARCHAR
+second_img: VARCHAR
+third_img: VARCHAR
+fourth_img: VARCHAR
+fifth_img: VARCHAR
+}
+
+entity chart{
+*id: VARCHAR
+*user_id: VARCHAR
+*product_id: VARCHAR
+*address_id: VARCHAR
+--
+quantity: INT
+selected: BOOLEAN
+}
+
+entity transactional_history{
+*id: VARCHAR
+*user_id: VARCHAR
+*seller_id: VARCHAR
+--
+no_invoice: VARCHAR
+user_name: VARCHAR
+seller_name: VARCHAR
+address: VARCHAR
+created_at: LONG
+--
+total_quantity: LONG
+total_price: LONG
+total_weight: LONG
+total_shipping_cost: LONG
+total_shopping_amount: LONG
+service_charge: LONG
+total_amount: LONG
+--
+status: ENUM
+}
+
+entity transactional_history_item_detail{
+*id: VARCHAR
+transactional_history_id: VARCHAR
+--
+product_id: VARCHAR
+product_name: VARCHAR
+product_weight: LONG
+product_price: BIGINT
+--
+quantity: LONG
+total_amount: BIGINT
+}
+
+entity chat{
+*id: VARCHAR
+*user_id: VARCHAR
+*seller_id: VARCHAR
+--
+massage: VARCHAR
+created_at: LONG
+}
+
+entity wishlist{
+*id: VARCHAR
+*user_id: VARCHAR
+*product_id: VARCHAR
+}
+
+entity follow{
+id: VARCHAR
+user_id: VARCHAR
+seller_id: VARCHAR
+created_at: LONG
+}
+
+'user ||--o| seller
+'seller ||--o| product
+'user ||--o| chart
+'chart ||--o| product
+'user ||--o| address
+'
+'product_etalase ||--o| product
+'product_etalase ||--o| seller
+'product_image ||--o| product
+'product_variant ||--o| product
+'product_variant ||--o| product_image
+'
+'user ||--o| wishlist
+'wishlist ||--o| product
+'
+'user ||--o| product_review
+'product_review ||--o| product
+'transactional_history_item_detail ||--o| transactional_history
+'transactional_history_item_detail ||--o| product
+'transactional_history ||--o| user
+'transactional_history ||--o| seller
+'
+'chat ||--o| seller
+'chat ||--o| user
+'
+'follow ||--o| user
+'follow ||--o| seller
+''''''''''''''
+user ||--o{ seller
+seller ||--o{ product
+user ||--o{ chart
+chart ||--o{ product
+user ||--o{ address
+
+product_etalase ||--o{ product
+product_etalase ||--o{ seller
+
+user ||--o{ wishlist
+wishlist ||--o{ product
+
+user ||--o{ product_review
+product_review ||--o{ product
+transactional_history_item_detail ||--o{ transactional_history
+transactional_history_item_detail ||--o{ product
+transactional_history ||--o{ user
+transactional_history ||--o{ seller
+
+chat ||--o{ seller
+chat ||--o{ user
+
+follow ||--o{ user
+follow ||--o{ seller
+
+product_image ||--o{ product
+product_variant ||--o{ product
+product_variant ||--o{ product_subvariant
+@enduml
