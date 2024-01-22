@@ -2,32 +2,22 @@
 
 # REGISTER VALIDATE EMAIL
 - Endpoint:
-> **POST** /api/ecommerce/v0.1/auth/register_email
+> **POST** /api/ecommerce/v0.1/auth/validate_email/{email}
 
 - Headers:
-
-> Accept: application/json
->
-> Content-Type: application/json
-
-- Request Body:
-```json
-{
-  "email": "random@gmail.com"
-}
-```
+>Content-Type: application/json
 
 - Response Body **(200)**:
 ```json
 {
   "api_version": "v0.1",
   "status_code": 200,
-  "message": "Success send otp to email, check your Email",
+  "message": "Success send otp to email, check your email",
   "data": {
     "email": "random@gmail.com"
   },
   "timestamp": "12301230123",
-  "path": "/api/ecommerce/v0.1/auth/register_email"
+  "path": "/api/ecommerce/v0.1/auth/validate_email"
 }
 ```
 
@@ -41,7 +31,7 @@
     "error": "Email has been previously registered, please log in"
   },
   "timestamp": "12301230123",
-  "path": "/api/ecommerce/v0.1/auth/register_email"
+  "path": "/api/ecommerce/v0.1/auth/validate_email"
 }
 ```
 ---
