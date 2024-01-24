@@ -1,9 +1,7 @@
 package org.ecommerce.api.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
-import org.ecommerce.api.model.DataResponse;
-import org.ecommerce.api.model.EmailRequest;
-import org.ecommerce.api.model.ValidateEmailResponse;
+import org.ecommerce.api.model.*;
 import org.ecommerce.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.print.attribute.standard.Media;
+import java.sql.Time;
 import java.sql.Timestamp;
 import java.time.LocalDate;
 
@@ -25,6 +25,8 @@ public class UserController {
     @Autowired
     private HttpServletRequest servletRequest;
 
+    private String version= "v0.1";
+
     @PostMapping(
             path = "/api/ecommerce/v0.1/auth/validate_email/{email}",
             produces = MediaType.APPLICATION_JSON_VALUE
@@ -33,9 +35,27 @@ public class UserController {
         ValidateEmailResponse response = userService.validateEmail(email);
 
         return DataResponse.<ValidateEmailResponse>builder()
-                .api_version("v0.1")
+                .api_version(version)
                 .status_code(HttpStatus.OK.value())
                 .message("Success send otp to email, check your email")
+                .data(response)
+                .timestamp(String.valueOf(new Timestamp(System.currentTimeMillis())))
+                .path(servletRequest.getServletPath())
+                .build();
+    }
+
+    @PostMapping(
+            path = "/api/ecommerce/v0.1/auth/register",
+            consumes = MediaType.APPLICATION_JSON_VALUE,
+            produces = MediaType.APPLICATION_JSON_VALUE
+    )
+    public DataResponse<RegisterResponse> response(@RequestBody RegisterRequest request){
+        RegisterResponse response = userService.register(request);
+
+        return DataResponse.<RegisterResponse>builder()
+                .api_version(version)
+                .status_code(HttpStatus.OK.value())
+                .message("Success register your email")
                 .data(response)
                 .timestamp(String.valueOf(new Timestamp(System.currentTimeMillis())))
                 .path(servletRequest.getServletPath())

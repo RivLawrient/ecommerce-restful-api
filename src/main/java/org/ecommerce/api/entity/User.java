@@ -1,9 +1,6 @@
 package org.ecommerce.api.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -33,6 +30,7 @@ public class User {
     @Column(name = "profile_picture")
     private String profilePicture;
 
+    @Column(unique = true)
     private String email;
 
     @Column(name = "email_otp")
