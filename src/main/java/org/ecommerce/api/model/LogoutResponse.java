@@ -7,17 +7,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegisterResponse {
+public class LogoutResponse {
 
     private String email;
 
     private String name;
 
-    private String token;
-
-    private Long tokenExpiredAt;
-
     private String updateAt;
-
-    private String createdAt;
 }

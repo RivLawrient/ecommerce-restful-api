@@ -1,6 +1,6 @@
 # API-SPEC E-Commerce
 
-# REGISTER VALIDATE EMAIL
+# REGISTER VALIDATE EMAIL v
 - Endpoint:
 > **POST** /api/ecommerce/v0.1/auth/validate_email/{email}
 
@@ -26,7 +26,7 @@
 {
   "api_version": "v0.1",
   "status_code": 400,
-  "message": "Failed send otp to email",
+  "message": "Failed, something wrong",
   "data": {
     "error": "Email has been previously registered, please log in"
   },
@@ -36,7 +36,7 @@
 ```
 ---
 
-# REGISTER
+# REGISTER v
 - Endpoint:
 > POST /api/ecommerce/v0.1/auth/register
 
@@ -64,6 +64,9 @@
   "data": {
     "email": "random@gmail.com",
     "name": "Muhammad Sandi",
+    "token": "rendom-random",
+    "tokenExpiredAt": "somehomee",
+    "updateAt":  "noqwww",
     "created_at": "04.01.2024"
   },
   "timestamp": "12301230123",
@@ -75,7 +78,7 @@
 {
   "api_version": "v0.1",
   "status_code": 400,
-  "message": "Failed register your email",
+  "message": "Failed, something wrong",
   "data": {
     "error": "otp email is wrong, check your email"
   },
@@ -86,7 +89,7 @@
 
 ---
 
-# OTP LOGIN
+# OTP LOGIN v
 
 - Enpoint:
 > GET /api/ecommerce/v0.1/auth/otp_login
@@ -109,7 +112,7 @@
 {
   "api_version": "v0.1",
   "status_code": 200,
-  "message": "Success get otp for your account",
+  "message": "Success get otp for your account, check your email",
   "data": {
     "email": "random@gmail.com",
     "name": "Muhammad Sandi",
@@ -125,7 +128,7 @@
 {
   "api_version": "v0.1",
   "status_code": 404,
-  "message": "Failed get otp for your account",
+  "message": "Failed, something wrong",
   "data": {
     "error": "your email or password is wrong"
   },
@@ -136,7 +139,7 @@
 
 ---
 
-# LOGIN
+# LOGIN v
 
 - Endpoint:
 > *GET* /api/ecommerce/v0.1/auth/login
@@ -148,7 +151,7 @@
 
 - Request Body:
 ```json
-  {
+{
   "email": "random@gmail.com",
   "password": "secret",
   "otp": 123123
@@ -179,9 +182,9 @@
 {
   "api_version": "v0.1",
   "status_code": 400,
-  "message": "Failed to Login",
+  "message": "Failed. something wrong",
   "data": {
-    "error": "OTP login is wrong check again"
+    "error": "otp login is wrong check again"
   },
   "timestamp": "12301230123",
   "path": "/api/ecommerce/v0.1/auth/login"
@@ -189,6 +192,95 @@
 ```
 
 ---
+
+# LOGOUT v
+
+- Endpoint:
+> *DELETE* /api/ecommerce/v0.1/auth/logout
+
+- Headers:
+> Content-Type: application/json
+> 
+> User-Token: random-random
+
+- Response Body (*200*):
+```json
+{
+  "api_version": "v0.1",
+  "status_code": 200,
+  "message": "Success to logout",
+  "data": {
+    "email": "random@gmail.com",
+    "name": "Muhammad Sandi",
+    "update_at": "05.01.2024"
+  },
+  "timestamp": "12301230123",
+  "path": "/api/ecommerce/v0.1/auth/logout"
+}
+```
+
+- Response Body **(400)**:
+```json
+{
+  "api_version": "v0.1",
+  "status_code": 400,
+  "message": "Failed, something wrong",
+  "data": {
+    "error": "token is wrong"
+  },
+  "timestamp": "12301230123",
+  "path": "/api/ecommerce/v0.1/auth/logout"
+}
+```
+
+---
+
+# GET DATA v
+
+
+- Endpoint:
+> **PUT** /api/ecommerce/v0.1/user
+
+- Headers:
+> Content-Type: application/json
+>
+> User-Token: randonm-random-ranodom
+
+- Response Body **(200)**:
+
+```json
+{
+  "api_version": "v0.1",
+  "status_code": 200,
+  "message": "Success get user",
+  "data": {
+    "name": "new name",
+    "birth_day": "smoething",
+    "gender": "male",
+    "profile_picture": "linksomething",
+    "email": "random@gmail.com",
+    "email_verification": true,
+    "update_at": "202020",
+    "created_at": "my tanggal"
+  },
+  "timestamp": "12301230123",
+  "path": "/api/ecommerce/v0.1/user"
+}
+```
+
+- Response Body **(404)**:
+```json
+{
+  "api_version": "v0.1",
+  "status_code": 404,
+  "message": "Failed something wrong",
+  "data": {
+    "error": "Your token is wrong"
+  },
+  "timestamp": "12301230123",
+  "path": "/api/ecommerce/v0.1/user"
+}
+```
 
 # CHANGE NAME
 

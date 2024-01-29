@@ -1,5 +1,6 @@
 package org.ecommerce.api.model;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.*;
 
 @Getter
@@ -7,17 +8,11 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegisterResponse {
+public class OtpLoginResponse {
 
     private String email;
 
     private String name;
 
-    private String token;
-
-    private Long tokenExpiredAt;
-
-    private String updateAt;
-
-    private String createdAt;
+    private String upadateAt;
 }

@@ -7,7 +7,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegisterResponse {
+public class LoginResponse {
 
     private String email;
 
@@ -18,6 +18,4 @@ public class RegisterResponse {
     private Long tokenExpiredAt;
 
     private String updateAt;
-
-    private String createdAt;
 }

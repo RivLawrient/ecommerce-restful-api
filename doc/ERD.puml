@@ -5,21 +5,20 @@ entity user{
 --
 *name: VARCHAR
 birth_day: DATE
-gender: CHAR
+gender: VARCHAR
 profile_picture: VARCHAR
 --
 *email: VARCHAR
 email_otp: VARCHAR
 email_verification: BOOLEAN
-*handphone: INT
+*handphone: VARCHAR
 handphone_otp: VARCHAR
 handphone_verification: BOOLEAN
 *password: VARCHAR
-pin: INT
 token: VARCHAR
 token_expired_at:LONG
-update_at: DATE
-created_at: DATE
+update_at: TIMESTAMP
+created_at: TIMESTAMP
 }
 
 

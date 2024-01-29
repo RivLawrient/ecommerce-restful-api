@@ -1,20 +1,16 @@
 package org.ecommerce.api.controller;
 
 import jakarta.servlet.http.HttpServletRequest;
+import org.ecommerce.api.entity.User;
 import org.ecommerce.api.model.*;
 import org.ecommerce.api.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import javax.print.attribute.standard.Media;
-import java.sql.Time;
+import java.net.http.HttpResponse;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 
 @RestController
 public class UserController {
@@ -23,42 +19,54 @@ public class UserController {
     private UserService userService;
 
     @Autowired
-    private HttpServletRequest servletRequest;
+    private HttpServletRequest request;
 
-    private String version= "v0.1";
+    private String version = "v0.1";
 
-    @PostMapping(
-            path = "/api/ecommerce/v0.1/auth/validate_email/{email}",
+    @GetMapping(
+            path = "/api/ecommerce/v0.1/user",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public DataResponse<ValidateEmailResponse> validateEmail(@PathVariable("email") EmailRequest email) {
-        ValidateEmailResponse response = userService.validateEmail(email);
+    public DataResponse<UserResponse> get(User user) {
+        UserResponse response = userService.get(user);
 
-        return DataResponse.<ValidateEmailResponse>builder()
+        return DataResponse.<UserResponse>builder()
                 .api_version(version)
                 .status_code(HttpStatus.OK.value())
-                .message("Success send otp to email, check your email")
+                .message("Success get user")
                 .data(response)
                 .timestamp(String.valueOf(new Timestamp(System.currentTimeMillis())))
-                .path(servletRequest.getServletPath())
+                .path(this.request.getServletPath())
                 .build();
     }
 
-    @PostMapping(
-            path = "/api/ecommerce/v0.1/auth/register",
-            consumes = MediaType.APPLICATION_JSON_VALUE,
+    @PutMapping(
+            path = "/api/ecommerce/v0.1/user/name",
             produces = MediaType.APPLICATION_JSON_VALUE
     )
-    public DataResponse<RegisterResponse> response(@RequestBody RegisterRequest request){
-        RegisterResponse response = userService.register(request);
+    public DataResponse<NameUserResponse> changeName(@RequestBody NameUserRequest request, User user) {
+        NameUserResponse response = userService.changeEmail(user, request);
 
-        return DataResponse.<RegisterResponse>builder()
+        return DataResponse.<NameUserResponse>builder()
                 .api_version(version)
                 .status_code(HttpStatus.OK.value())
-                .message("Success register your email")
+                .message("Success change your name")
                 .data(response)
                 .timestamp(String.valueOf(new Timestamp(System.currentTimeMillis())))
-                .path(servletRequest.getServletPath())
+                .path(this.request.getServletPath())
                 .build();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

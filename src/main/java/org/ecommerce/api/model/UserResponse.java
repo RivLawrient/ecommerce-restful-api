@@ -7,15 +7,19 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class RegisterResponse {
-
-    private String email;
+public class UserResponse {
 
     private String name;
 
-    private String token;
+    private String birthDay;
 
-    private Long tokenExpiredAt;
+    private String gender;
+
+    private String profilePicture;
+
+    private String email;
+
+    private Boolean emailVerification;
 
     private String updateAt;
 
