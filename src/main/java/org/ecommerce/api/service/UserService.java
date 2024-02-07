@@ -55,4 +55,23 @@ public class UserService {
                 .updateAt(user.getUpdateAt())
                 .build();
     }
+
+    @Transactional
+    public BirthUserResponse addBirth(User user, BirthUserRequest request){
+        validateService.validate(request);
+        if(user.getBirthDay() == null){
+            user.setBirthDay(String.valueOf(new Timestamp(request.getYear(), request.getMonth(), request.getDay() , 0,0,0,0)));
+            user.setUpdateAt(String.valueOf(new Timestamp(System.currentTimeMillis())));
+            userRepository.save(user);
+
+            return BirthUserResponse.builder()
+                    .email(user.getEmail())
+                    .name(user.getName())
+                    .birthDay(user.getBirthDay())
+                    .updateAt(user.getUpdateAt())
+                    .build();
+        }{
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "birth was add previously");
+        }
+    }
 }
