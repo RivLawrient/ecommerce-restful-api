@@ -4,6 +4,7 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.ecommerce.api.entity.User;
 import org.ecommerce.api.model.*;
+import org.ecommerce.api.repository.AddressRepository;
 import org.ecommerce.api.repository.UserRepository;
 import org.ecommerce.api.security.BCrypt;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,8 +37,12 @@ class AuthControllerTest {
     @Autowired
     private UserRepository userRepository;
 
+    @Autowired
+    private AddressRepository addressRepository;
+
     @BeforeEach
     void setUp() {
+        addressRepository.deleteAll();
         userRepository.deleteAll();
     }
 
